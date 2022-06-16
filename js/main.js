@@ -58,18 +58,32 @@ const MESSAGES = [
 let commentId = 0;
 let photoId = 0;
 
+/*Функция, возвращающая случайное целое число из переданного диапазона включительно, включая граничные значения*/
+const getRandomPositiveInteger = (a, b) => {
+  const min = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
+  const max = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+
+/*Функция для проверки максимальной длины строки*/
+const getStringLength = (string, maxLength) => string.length <= maxLength;
+
+getStringLength('string', 10);
+
 // Функция для получения случайного элемента из массива
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
 // Функция для получения случайного комментария (1-2 возможных сообщения в одном комментарии)
 const createCommentMessage = () => {
-  const messageCount = getRandomPositiveInteger(MessageCount.min,MessageCount.max);
-  let message = '';
+  const messageCount = getRandomPositiveInteger(MessageCount.min, MessageCount.max);
+  let message = [];
 
   for (let i = 1; i <= messageCount; i++) {
-    message = `${message} ${getRandomArrayElement(MESSAGES)}`;
+    message.push(getRandomArrayElement(MESSAGES));
   }
-  return message;
+
+  return [... new Set(message)].join(' ');
 };
 
 //Функция создания объекта с данными комментария
@@ -98,22 +112,6 @@ const createPhotoObject = () => {
 };
 
 // Функция создания 25 объектов
-function similarPhotos() {
-  return Array.from({length: OBJECT_COUNT}, createPhotoObject);
-}
+const similarPhotos = () => Array.from({length: OBJECT_COUNT}, createPhotoObject);
 
 similarPhotos();
-
-/*Функция, возвращающая случайное целое число из переданного диапазона включительно, включая граничные значения*/
-function getRandomPositiveInteger (a, b) {
-  const min = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
-  const max = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-getRandomPositiveInteger(1,5);
-
-/*Функция для проверки максимальной длины строки*/
-const getStringLength = (string, maxLength) => string.length <= maxLength;
-
-getStringLength('string', 10);
