@@ -64,7 +64,7 @@ let photoId = 0;
 // Функция для получения случайного комментария (1-2 возможных сообщения в одном комментарии)
 const createCommentMessage = () => {
   const messageCount = getRandomPositiveInteger(MessageCount.min, MessageCount.max);
-  let message = [];
+  const message = [];
 
   for (let i = 1; i <= messageCount; i++) {
     message.push(getRandomArrayElement(MESSAGES));
