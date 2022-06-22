@@ -99,7 +99,7 @@ const createPhotoObject = () => {
 };
 
 // Функция создания 25 объектов
-const similarPhotos = () => Array.from({length: OBJECT_COUNT}, createPhotoObject);
+const createSimilarPhotos = () => Array.from({length: OBJECT_COUNT}, createPhotoObject);
 
 
-export {similarPhotos};
+export {createSimilarPhotos};

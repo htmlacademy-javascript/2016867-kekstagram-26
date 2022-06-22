@@ -1,3 +1,3 @@
-import {similarPhotos} from './data.js';
-import './draw-minis.js';
-similarPhotos();
+import {drawThumbnails} from  './draw-thumbnails.js';
+
+drawThumbnails();

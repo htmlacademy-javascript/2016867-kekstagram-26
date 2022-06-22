@@ -14,4 +14,12 @@ getStringLength('string', 10);
 // Функция для получения случайного элемента из массива
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
-export {getRandomArrayElement, getRandomPositiveInteger};
+const createElement = (tagName, className) => {
+  const element = document.createElement(tagName);
+  if (className) {
+    element.classList.add(className);
+  }
+  return element;
+};
+
+export {getRandomArrayElement, getRandomPositiveInteger, createElement};
