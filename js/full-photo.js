@@ -1,4 +1,4 @@
-import { createElement } from './util.js';
+import { createElement, isEscapeKey } from './util.js';
 
 const WIDTH = 35;
 const HEIGHT = 35;
@@ -21,7 +21,7 @@ const closeModal = () => {
 };
 
 const onDocumentKeydown = (evt) => {
-  if (evt.key === 'Escape') {
+  if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeModal();
   }
