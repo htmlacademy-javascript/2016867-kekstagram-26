@@ -22,4 +22,16 @@ const createElement = (tagName, className) => {
   return element;
 };
 
-export {getRandomArrayElement, getRandomPositiveInteger, createElement};
+const isEscapeKey = (evt) =>  evt.key === 'Escape';
+
+const isArrayUnique = (elements) => {
+  const result = [];
+  elements.forEach((element) => {
+    if (!result.includes(element)) {
+      result.push(element);
+    }
+  });
+  return result.length === elements.length;
+};
+
+export {getRandomArrayElement, getRandomPositiveInteger, createElement, isEscapeKey, isArrayUnique};
