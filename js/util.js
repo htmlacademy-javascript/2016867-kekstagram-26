@@ -14,14 +14,6 @@ getStringLength('string', 10);
 // Функция для получения случайного элемента из массива
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
-const createElement = (tagName, className) => {
-  const element = document.createElement(tagName);
-  if (className) {
-    element.classList.add(className);
-  }
-  return element;
-};
-
 const isEscapeKey = (evt) =>  evt.key === 'Escape';
 
 const isArrayUnique = (elements) => {
@@ -34,4 +26,4 @@ const isArrayUnique = (elements) => {
   return result.length === elements.length;
 };
 
-export {getRandomArrayElement, getRandomPositiveInteger, createElement, isEscapeKey, isArrayUnique};
+export {getRandomArrayElement, getRandomPositiveInteger, isEscapeKey, isArrayUnique};
