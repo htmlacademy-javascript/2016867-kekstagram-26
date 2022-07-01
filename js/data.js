@@ -19,7 +19,7 @@ const LikesCount = {
 
 const CommentsCount = {
   min: 1,
-  max: 5,
+  max: 15,
 };
 
 const NAMES = [
