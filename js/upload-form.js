@@ -1,5 +1,12 @@
 import { isEscapeKey, isArrayUnique } from './util.js';
 
+const BASE_SCALE = 1;
+const BASE_PERCENT = 100;
+const SCALE_STEP = 0.25;
+const PERCENT_STEP = 25;
+let percent = 100;
+let scale = 1;
+
 const uploadFile = document.querySelector('#upload-file');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const uploadCancel = document.querySelector('#upload-cancel');
@@ -7,12 +14,21 @@ const uploadSelectImage = document.querySelector('#upload-select-image');
 const form = document.querySelector('#upload-select-image');
 const hashtagsInput = form.querySelector('[name="hashtags"]');
 
+const scaleControlSmaller = document.querySelector('.scale__control--smaller');
+const scaleControlBigger = document.querySelector('.scale__control--bigger');
+const scaleControlValue = document.querySelector('.scale__control--value');
+const uploadPicture = document.querySelector('.img-upload__preview img');
+
 const closeModal = () => {
   imgUploadOverlay.classList.add('hidden');
   document.body.classList.remove('modal-open');
   uploadSelectImage.reset();
   form.reset();
-  removeEventListener();
+  scaleControlValue.value = `${BASE_PERCENT}%`;
+  uploadPicture.style.transform = `scale(${BASE_SCALE})`;
+  percent = BASE_PERCENT;
+  scale = BASE_SCALE;
+  removeEventListeners();
   if (document.querySelector('.pristine-error')) {
     document.querySelector('.pristine-error').innerHTML='';
   }
@@ -30,17 +46,11 @@ const onUploadCancelClick = (evt) => {
   closeModal();
 };
 
-function removeEventListener() {
-  document.removeEventListener('keydown', onDocumentKeydown);
-  uploadCancel.removeEventListener('click', onUploadCancelClick);
-}
-
 const onInputUploadFormChange = (evt) => {
   evt.preventDefault();
   imgUploadOverlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
-  document.addEventListener('keydown',onDocumentKeydown);
-  uploadCancel.addEventListener('click',  onUploadCancelClick);
+  addEventListeners();
 };
 
 const pristine = new Pristine(form, {
@@ -67,6 +77,42 @@ const onFormSubmit = (evt) => {
     evt.preventDefault();
   }
 };
+
+const onControlSmallerClick = (evt)  =>{
+  evt.preventDefault();
+  if (percent <= PERCENT_STEP) {
+    return;
+  }
+  scaleControlValue.value = `${percent - PERCENT_STEP}%`;
+  uploadPicture.style.transform = `scale(${scale - SCALE_STEP})`;
+  percent = percent - PERCENT_STEP;
+  scale = scale - SCALE_STEP;
+};
+
+const onControlBiggerClick = (evt)  =>{
+  evt.preventDefault();
+  if (percent >= BASE_PERCENT) {
+    return;
+  }
+  scaleControlValue.value = `${percent + PERCENT_STEP}%`;
+  uploadPicture.style.transform = `scale(${scale + SCALE_STEP})`;
+  percent = percent + PERCENT_STEP;
+  scale = scale + SCALE_STEP;
+};
+
+function addEventListeners() {
+  document.addEventListener('keydown', onDocumentKeydown);
+  uploadCancel.addEventListener('click',  onUploadCancelClick);
+  scaleControlSmaller.addEventListener('click', onControlSmallerClick);
+  scaleControlBigger.addEventListener('click', onControlBiggerClick);
+}
+
+function removeEventListeners() {
+  document.removeEventListener('keydown', onDocumentKeydown);
+  uploadCancel.removeEventListener('click', onUploadCancelClick);
+  scaleControlSmaller.removeEventListener('click', onControlSmallerClick);
+  scaleControlBigger.removeEventListener('click', onControlBiggerClick);
+}
 
 const initUploadFormAction = () => {
   uploadFile.addEventListener('change', onInputUploadFormChange);
