@@ -96,6 +96,7 @@ const onInputUploadFormChange = (evt) => {
   evt.preventDefault();
   imgUploadOverlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
+  effectLevelFieldset.classList.add('hidden');
   addEventListeners();
 };
 
@@ -163,10 +164,12 @@ const changeEffect = (effectValue) => {
     effectLevelFieldset.noUiSlider.destroy();
     imagePreview.style = '';
     imagePreview.className = '';
+    effectLevelFieldset.classList.add('hidden');
     return;
   }
 
   if (!effectLevelFieldset.noUiSlider) {
+    effectLevelFieldset.classList.remove('hidden');
     createSlider();
   }
 
