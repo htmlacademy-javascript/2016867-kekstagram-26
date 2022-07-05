@@ -17,7 +17,7 @@
    box-sizing: border-box;
  }
  .noUi-target {
-   position: relative;
+   position: absolute;
  }
  .noUi-base,
  .noUi-connects {
