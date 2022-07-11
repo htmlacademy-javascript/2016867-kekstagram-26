@@ -1,4 +1,6 @@
-import { isEscapeKey, isArrayUnique } from './util.js';
+import { isEscapeKey, isArrayUnique} from './util.js';
+import {sendData} from './api.js';
+import {errorPopup, successPopup} from './popup.js';
 
 const BASE_SCALE = 1;
 const BASE_PERCENT = 100;
@@ -41,16 +43,17 @@ const uploadCancel = document.querySelector('#upload-cancel');
 const uploadSelectImage = document.querySelector('#upload-select-image');
 const form = document.querySelector('#upload-select-image');
 const hashtagsInput = form.querySelector('[name="hashtags"]');
+const buttonUploadElement = document.querySelector('.img-upload__submit');
 
 const scaleControlSmaller = document.querySelector('.scale__control--smaller');
 const scaleControlBigger = document.querySelector('.scale__control--bigger');
 const scaleControlValue = document.querySelector('.scale__control--value');
-const uploadPicture = document.querySelector('.img-upload__preview img');
 
 const imagePreview = document.querySelector('.img-upload__preview img');
 const effectsListElement = document.querySelector('.effects__list');
 const effectLevelFieldset = document.querySelector('.effect-level');
 const effectValueElement = document.querySelector('.effect-level__value');
+
 
 const FILTER_NAME = {
   'chrome': 'grayscale',
@@ -71,7 +74,7 @@ const closeModal = () => {
   uploadSelectImage.reset();
   form.reset();
   scaleControlValue.value = `${BASE_PERCENT}%`;
-  uploadPicture.style.transform = `scale(${BASE_SCALE})`;
+  imagePreview.style.transform = `scale(${BASE_SCALE})`;
   percent = BASE_PERCENT;
   scale = BASE_SCALE;
   removeEventListeners();
@@ -119,9 +122,28 @@ pristine.addValidator(hashtagsInput, (value) => isArrayUnique(serializeHashtag(v
 
 const isUploadFormValid = () => pristine.validate();
 
+const onSuccess = (response) => {
+  buttonUploadElement.disabled = false;
+  if (response.ok){
+    closeModal();
+    successPopup();
+    return;
+  }
+  errorPopup();
+};
+
+const onError = () => {
+  buttonUploadElement.disabled = false;
+  errorPopup();
+};
+
 const onFormSubmit = (evt) => {
-  if (!isUploadFormValid()) {
-    evt.preventDefault();
+  evt.preventDefault();
+  const isValid = isUploadFormValid();
+  if (isValid) {
+    buttonUploadElement.disabled = true;
+    const formData = new FormData(evt.target);
+    sendData(formData, onSuccess, onError);
   }
 };
 
@@ -131,7 +153,7 @@ const onControlSmallerClick = (evt)  =>{
     return;
   }
   scaleControlValue.value = `${percent - PERCENT_STEP}%`;
-  uploadPicture.style.transform = `scale(${scale - SCALE_STEP})`;
+  imagePreview.style.transform = `scale(${scale - SCALE_STEP})`;
   percent = percent - PERCENT_STEP;
   scale = scale - SCALE_STEP;
 };
@@ -142,7 +164,7 @@ const onControlBiggerClick = (evt)  =>{
     return;
   }
   scaleControlValue.value = `${percent + PERCENT_STEP}%`;
-  uploadPicture.style.transform = `scale(${scale + SCALE_STEP})`;
+  imagePreview.style.transform = `scale(${scale + SCALE_STEP})`;
   percent = percent + PERCENT_STEP;
   scale = scale + SCALE_STEP;
 };
