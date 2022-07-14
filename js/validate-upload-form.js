@@ -1,4 +1,4 @@
-import { isArrayUnique} from './util.js';
+import { isArrayUnique } from './util.js';
 
 const form = document.querySelector('#upload-select-image');
 const hashtagsInput = form.querySelector('[name="hashtags"]');
@@ -22,4 +22,4 @@ pristine.addValidator(hashtagsInput, (value) => isArrayUnique(serializeHashtag(v
 
 const isUploadFormValid = () => pristine.validate();
 
-export {isUploadFormValid};
+export { isUploadFormValid };

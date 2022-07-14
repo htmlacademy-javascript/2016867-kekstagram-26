@@ -1,4 +1,4 @@
-import {isEscapeKey} from './util.js';
+import { isEscapeKey } from './util.js';
 
 const ALERT_SHOW_TIME = 5000;
 
@@ -85,4 +85,4 @@ const successPopup = () => {
 
   addEventListeners();
 };
-export {errorMessage, errorPopup, successPopup};
+export { errorMessage, errorPopup, successPopup };

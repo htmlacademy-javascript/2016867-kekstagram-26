@@ -104,4 +104,4 @@ const showBigPicture = (picture) => {
   addModalListeners();
 };
 
-export {showBigPicture};
+export { showBigPicture };

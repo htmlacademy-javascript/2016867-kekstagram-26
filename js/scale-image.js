@@ -38,4 +38,4 @@ const resetScale = () => {
   scale = BASE_SCALE;
 };
 
-export {onControlSmallerClick, onControlBiggerClick,resetScale };
+export { onControlSmallerClick, onControlBiggerClick,resetScale };
