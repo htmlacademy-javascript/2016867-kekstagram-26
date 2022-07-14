@@ -50,7 +50,7 @@ function removeEventListeners() {
   document.removeEventListener('keydown', onEscapeButtonDown);
 }
 
-const errorMessage = () => {
+const createErrorMessage = () => {
   const messageElement = document.createElement('div');
   messageElement.textContent = 'Произошёл сбой. Попробуйте позже.';
   messageElement.style.zIndex = '100';
@@ -66,7 +66,7 @@ const errorMessage = () => {
   setTimeout (() => {messageElement.remove();}, ALERT_SHOW_TIME);
 };
 
-const errorPopup = () => {
+const createErrorPopup = () => {
   document.body.append(errorPopupElement);
 
   errorButtonElement.addEventListener('click', () => {
@@ -76,7 +76,7 @@ const errorPopup = () => {
   addEventListeners();
 };
 
-const successPopup = () => {
+const createSuccessPopup = () => {
   document.body.append(successPopupElement);
 
   successButtonElement.addEventListener('click', () => {
@@ -85,4 +85,4 @@ const successPopup = () => {
 
   addEventListeners();
 };
-export { errorMessage, errorPopup, successPopup };
+export { createErrorMessage, createErrorPopup, createSuccessPopup };
