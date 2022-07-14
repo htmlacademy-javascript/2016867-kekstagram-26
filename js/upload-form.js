@@ -1,9 +1,9 @@
 import { isEscapeKey } from './util.js';
 import { isUploadFormValid } from './validate-upload-form.js';
 import { changeEffect } from './photo-effect.js';
-import {sendData} from './api.js';
-import {errorPopup, successPopup} from './popup.js';
-import {onControlSmallerClick, onControlBiggerClick, resetScale } from './scale-image.js';
+import { sendData } from './api.js';
+import { errorPopup, successPopup } from './popup.js';
+import { onControlSmallerClick, onControlBiggerClick, resetScale } from './scale-image.js';
 
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
@@ -109,4 +109,4 @@ const initUploadFormAction = () => {
   form.addEventListener('submit', onFormSubmit);
 };
 
-export {initUploadFormAction};
+export { initUploadFormAction };

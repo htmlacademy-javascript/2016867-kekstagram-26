@@ -25,4 +25,4 @@ const sendData = (formData, onSuccess, onError) => {
     .catch(onError);
 };
 
-export {getData, sendData};
+export { getData, sendData };

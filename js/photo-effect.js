@@ -93,4 +93,4 @@ const changeEffect = (effectValue) => {
 };
 
 
-export {changeEffect};
+export { changeEffect };

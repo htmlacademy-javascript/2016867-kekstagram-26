@@ -5,12 +5,6 @@ const getRandomPositiveInteger = (a, b) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-
-/*Функция для проверки максимальной длины строки*/
-const getStringLength = (string, maxLength) => string.length <= maxLength;
-
-getStringLength('string', 10);
-
 // Функция для получения случайного элемента из массива
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
@@ -26,5 +20,37 @@ const isArrayUnique = (elements) => {
   return result.length === elements.length;
 };
 
+function debounce (callback, timeoutDelay = 500) {
+  // Используем замыкания, чтобы id таймаута у нас навсегда приклеился
+  // к возвращаемой функции с setTimeout, тогда мы его сможем перезаписывать
+  let timeoutId;
 
-export {getRandomArrayElement, getRandomPositiveInteger, isEscapeKey, isArrayUnique};
+  return (...rest) => {
+    // Перед каждым новым вызовом удаляем предыдущий таймаут,
+    // чтобы они не накапливались
+    clearTimeout(timeoutId);
+
+    // Затем устанавливаем новый таймаут с вызовом колбэка на ту же задержку
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+
+    // Таким образом цикл «поставить таймаут - удалить таймаут» будет выполняться,
+    // пока действие совершается чаще, чем переданная задержка timeoutDelay
+  };
+}
+
+const shuffle = (array) => {
+  const shuffleArray = array.slice();
+  let currentIndex = shuffleArray.length, randomIndex;
+
+  while (0 !== currentIndex) {
+
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    //меняем местами элементы
+    [shuffleArray[currentIndex], shuffleArray[randomIndex]] = [shuffleArray[randomIndex], shuffleArray[currentIndex]];
+  }
+
+  return shuffleArray;
+};
+
+export { getRandomArrayElement, getRandomPositiveInteger, isEscapeKey, isArrayUnique, debounce, shuffle };
