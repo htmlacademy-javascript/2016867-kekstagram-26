@@ -1,8 +1,8 @@
 import { showBigPicture } from  './full-photo.js';
-import { getFilteredPhotos } from './filter-photo.js';
 
 const similarListElement = document.querySelector('.pictures');
 const similarListTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const imgFilter = document.querySelector('.img-filters');
 
 const similarUserFragment = document.createDocumentFragment();
 
@@ -13,7 +13,10 @@ const clearPicturesList = () => {
 };
 
 const drawThumbnails = (photos) =>{
-  getFilteredPhotos(photos).forEach((photo)=> {
+  if (imgFilter.classList.contains('img-filters--inactive')) {
+    imgFilter.classList.remove('img-filters--inactive');
+  }
+  photos.forEach((photo)=> {
     const userElement = similarListTemplate.cloneNode(true);
     userElement.querySelector('.picture__img').src = photo.url;
     userElement.querySelector('.picture__likes').textContent = photo.likes;
@@ -29,4 +32,3 @@ const drawThumbnails = (photos) =>{
 };
 
 export { drawThumbnails };
-
