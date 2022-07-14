@@ -2,7 +2,7 @@ import { isEscapeKey } from './util.js';
 import { isUploadFormValid } from './validate-upload-form.js';
 import { changeEffect } from './photo-effect.js';
 import { sendData } from './api.js';
-import { errorPopup, successPopup } from './popup.js';
+import { createErrorPopup, createSuccessPopup } from './popup.js';
 import { onControlSmallerClick, onControlBiggerClick, resetScale } from './scale-image.js';
 
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
@@ -66,12 +66,12 @@ const onInputUploadFormChange = (evt) => {
 const onSuccess = () => {
   buttonUploadElement.disabled = false;
   closeModal();
-  successPopup();
+  createSuccessPopup();
 };
 
 const onError = () => {
   buttonUploadElement.disabled = false;
-  errorPopup();
+  createErrorPopup();
 };
 
 const onFormSubmit = (evt) => {
